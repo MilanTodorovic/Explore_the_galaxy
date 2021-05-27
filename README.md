@@ -19,3 +19,9 @@ Searches for systems which are X LY away of an entity (cryosleeper, coronal tap,
 
 
 <img src="./mod_pic.png">
+
+
+#TODO:
+- filter by stable locations/jump points
+- filter by inactive gates
+- filter by planet type
