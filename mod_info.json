@@ -1,0 +1,10 @@
+{
+  "id":"exploration",
+  "name":"Explore the Galaxy",
+  "author":"hypocrisy-aeron",
+  "utility":"true",
+  "version":"0.7",
+  "suppressVCUnsupported":true,
+  "description":"Enables the player to search for systems with a certain number of planets and conditions.",
+  "gameVersion":"0.95a-RC15"
+}

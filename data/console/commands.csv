@@ -1,0 +1,13 @@
+command,class,tags,syntax,help
+# Command: what the player enters to use your custom command
+# Class: points towards the command's script, which should implement BaseCommand
+# Tags: used by the Help command to find specific types of commands. Example tags:
+#  Console - system-level commands such as Help or Status, will work everywhere
+#  Campaign/Combat - this command only works in these contexts
+#  A mod-specific tag - include your mod as a tag so Help can differentiate them! The console mod uses the "core" tag, so please don't use that tag in your mod
+# Syntax: the syntax pattern for your command. <> denotes a required field, [] an optional one. Ex: "addcrew <amount> [optionalLevel]"
+# Help: what the player is shown when they enter "help <command>". The syntax line will be shown by help as well, so you don't need to include it again.
+#
+Explore,data.console.commands.Explore,"Exploration,campaign",Explore [full] [planet_count] [conditions],"Searches all star systems for specified conditions. Full (boolean) - search even planets you haven't surveyed (default `false`, sets survey level to FULL), Planet count - MINIMUM nr. of planets that the system needs to have (default 1), Conditions - a comma-separated, no-space list of planetary conditions that must be met e.g.: [habitable=2,ore_rare=1] at leats two planets that are habitable and one that has transplutonic ore"
+#ExploreDebug,data.console.commands.ExploreDebug,"Exploration,campaign",ExploreDebug [full] [planet_count] [conditions],"Debug version if the regular command, Contains print statements."
+SystemInRange,data.console.commands.SystemInRange,"Exploration,campaign",SystemInRange <entity> <LY>,"Finds systems in specified range (integer) of an entity (coronal_tap, derelict_cryosleeper, inactive_gate)."
