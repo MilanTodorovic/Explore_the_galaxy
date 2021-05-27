@@ -19,4 +19,3 @@ Searches for systems which are X LY away of an entity (cryosleeper, coronal tap,
 
 
 <img src="./mod_pic.png">
-![mod](https://github.com/MilanTodorovic/Explore_the_galaxy/mod_pic.png)
