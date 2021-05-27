@@ -1,6 +1,9 @@
 # Explore_the_galaxy
 [![Github All Releases](https://img.shields.io/github/downloads/MilanTodorovic/Explore_the_galaxy/total.svg)]()
 
+<centered><img src="./logo_pizonko_interlaced.png"></centered>
+
+
 A console script for Starsector<br><br>
 
 This mod benefits mostly users that have Grand or Adjusted sector mods.<br>
