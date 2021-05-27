@@ -7,7 +7,7 @@ Commands:<br>
 *__full__* - true or false (default), include or exclude planets tha you haven't discovered yet. If set to true, will set the planet to surveyed.<br>
 *__planets__* -  the __minimum__ number of planets a system must include (default 1)<br>
 *__conditions__* - a comma-separated, __no-space__ list of conditions and times it needs to occure in the system: \[habitable=2,ore_rare=1] - **at least** two planets that are habitable and one that has transplutonic ore.<br>
-\t Example: Explore true 5 \[habitable=2]
+    Example: Explore true 5 \[habitable=2]
 2) SystemInRange \<entity> \<LY><br>
 Searches for systems which are X LY away of an enitity (cryosleeper, coronal tap, inactive gate).<br>
-\t Example: SystemInRange coronal_tap 10
+    Example: SystemInRange coronal_tap 10
