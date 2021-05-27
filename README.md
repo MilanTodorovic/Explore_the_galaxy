@@ -16,3 +16,6 @@ Commands:<br>
 Searches for systems which are X LY away of an entity (cryosleeper, coronal tap, inactive gate).<br>
 
     Example: SystemInRange coronal_tap 10
+
+
+![mod](https://github.com/MilanTodorovic/Explore_the_galaxy/mod_pic.png)
