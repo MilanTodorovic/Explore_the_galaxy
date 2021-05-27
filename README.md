@@ -18,4 +18,5 @@ Searches for systems which are X LY away of an entity (cryosleeper, coronal tap,
     Example: SystemInRange coronal_tap 10
 
 
+<img src="./mod_pic.png">
 ![mod](https://github.com/MilanTodorovic/Explore_the_galaxy/mod_pic.png)
