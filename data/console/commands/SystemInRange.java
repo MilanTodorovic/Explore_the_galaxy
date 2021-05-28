@@ -30,16 +30,28 @@ public class SystemInRange implements BaseCommand {
     private static DecimalFormat df = new DecimalFormat("#.##");
 
     public void findObject(LocationAPI loc) {
-        if (!loc.isHyperspace() & loc != null) {
+        if (!loc.isHyperspace() && loc != null) {
+            String constellation = "";
             List<SectorEntityToken> objectEntity = loc.getEntitiesWithTag(objectToSearch);
             if (!objectEntity.isEmpty()) {
-                objectCoordinates.put(loc.getNameWithLowercaseType(), loc.getLocation());
-                Console.showMessage("Found "+objectToSearch+" in " + loc.getNameWithLowercaseType() + " at " + loc.getLocation());
+                try{
+                    constellation = loc.getConstellation().getName();
+                } catch (Exception e) {
+                    constellation = "Core World";
+                }
+
+                objectCoordinates.put(constellation + " - " + loc.getNameWithLowercaseType(), loc.getLocation());
+                Console.showMessage("Found "+objectToSearch+" in " + constellation + " - "+ loc.getNameWithLowercaseType() + " at " + loc.getLocation());
             } else {
                 try{
-                    systems.put(loc.getNameWithLowercaseType(), loc.getLocation());
+                    try{
+                        constellation = loc.getConstellation().getName();
+                    } catch (Exception e) {
+                        constellation = "Core World";
+                    }
+                    systems.put(constellation + " - " + loc.getNameWithLowercaseType(), loc.getLocation());
                 } catch (Exception e){
-                    Console.showMessage("Location that doesn't have coordinates" + loc);
+                    Console.showMessage("Location that doesn't have coordinates: " + loc);
                 }
             }
         }
@@ -98,7 +110,7 @@ public class SystemInRange implements BaseCommand {
                 Console.showMessage("You must type in a integer. You typed " + tmp[1]);
                 return CommandResult.BAD_SYNTAX;
             }
-
+            Console.showMessage("\n---------------------------------------------------------------------------------------");
             for (LocationAPI loc : Global.getSector().getAllLocations()) {
                 // finds entities and also takes no on all the coordinates of each star system
                 findObject(loc);
@@ -109,4 +121,3 @@ public class SystemInRange implements BaseCommand {
         }
     }
 }
-

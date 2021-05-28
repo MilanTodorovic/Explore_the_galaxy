@@ -14,11 +14,18 @@ import org.lazywizard.console.Console;
 
 
 // TODO IMPORTANT https://fractalsoftworks.com/forum/index.php?topic=17103.msg320152#msg320152
+//  * Cryosleeper in range of planet
+//  * Habitable Planet
+//  * Low Hazard
+//  * Very rich planet
+//  * Lots of planets in the system
 
 public class Explore implements BaseCommand {
+    // TODO move everything into settings.json
     static boolean playerSurveyFull = false; // if true, survey even unsurveyed planets
     static int playerPlanetCount = 1; // minimum number of planets in a system
     static boolean foundAdequateSystem = false;
+    static boolean excludeClaimedSystems = false;
 
     protected static void explore(LocationAPI loc, HashMap<String, Integer> playerConditions)//, boolean playerSurveyFull, int playerPlanetCount, String[] playerConditions)
     {
@@ -39,8 +46,11 @@ public class Explore implements BaseCommand {
         try {
             constellationName = loc.getConstellation().getName();
         } catch (Exception e) {
-            // TODO skip all planets in the core world
             constellationName = "Core world";
+            if (excludeClaimedSystems) {
+                // skips further iteration if the system is in the core world
+                return;
+            }
         }
 
         sb.append("Constellation `").append(constellationName).append("`\n");
@@ -114,11 +124,16 @@ public class Explore implements BaseCommand {
         // TODO Distinguish moons and planets and sort accordingly
         for (PlanetAPI planet : loc.getPlanets()) {
             StringBuilder planetsAndConditions = new StringBuilder("");
-            if (!planet.isStar() & !planet.isNormalStar()) {
+            if (!planet.isStar() && !planet.isNormalStar()) {
                 planetNames[planetsInSystem] = planet.getName();
                 planetTypes[planetsInSystem] = planet.getTypeNameWithWorld();
                 MarketAPI planetMarket = planet.getMarket();
                 String factionName = planetMarket.getFaction().getDisplayName();
+
+                if (!factionName.equalsIgnoreCase("neutral") && excludeClaimedSystems){
+                    return;
+                }
+
                 planetHazardValues[planetsInSystem] = (int) (planetMarket.getHazardValue() * 100);
                 MarketAPI.SurveyLevel planetSurveyLevel = planetMarket.getSurveyLevel();
                 // set survey lvl to FULL if the player specified
@@ -142,9 +157,11 @@ public class Explore implements BaseCommand {
                                 // and mark each condition as surveyed
                                 condName = condition.getId(); // ore_sparse
                                 condition.setSurveyed(true);
+                                planetsAndConditions.append(condName).append(", ");
                             } else {
                                 if (condition.isSurveyed()) {
                                     condName = condition.getId(); // ore_sparse
+                                    planetsAndConditions.append(condName).append(", ");
                                 }
                             }
 
@@ -159,8 +176,6 @@ public class Explore implements BaseCommand {
                             } else {
                                 allConditions.put(condName, 1);
                             }
-
-                            planetsAndConditions.append(condName).append(", ");
                             // increment the planetary condition counter
                             counter++;
                         }
@@ -223,6 +238,11 @@ public class Explore implements BaseCommand {
         //  1) Program doesn't work if you leave <> in HashMap, or any other complex type, empty; although it shouldn't be required since Java 7
 
         HashMap<String, Integer> playerConditions = new HashMap<String, Integer>(); // planetary conditions
+        // reset value with each command
+        playerSurveyFull = false;
+        playerPlanetCount = 1;
+        foundAdequateSystem = false;
+        excludeClaimedSystems = false;
 
         if (!context.isInCampaign()) {
             Console.showMessage(CommonStrings.ERROR_CAMPAIGN_ONLY);
@@ -237,11 +257,15 @@ public class Explore implements BaseCommand {
                     playerSurveyFull = true;
                 } else if (t.equalsIgnoreCase("false")) {
                     playerSurveyFull = false;
+                } else if (t.equalsIgnoreCase("exclude")){
+                    excludeClaimedSystems = true;
+                } else if (t.equalsIgnoreCase("include")) {
+                    excludeClaimedSystems = false;
                 } else if (t.charAt(0) == '[') {
                     try {
                         String[] tmp_t = t.substring(1, t.length() - 1).split(","); // ["habitable=2",...]
                         // passing in [] results in a single empty string
-                        if (tmp_t.length != 0 & !tmp_t[0].isEmpty()) {
+                        if (tmp_t.length != 0 && !tmp_t[0].isEmpty()) {
                             for (String cond : tmp_t) {
                                 String[] tmp_cond = cond.split("=");
                                 try {
@@ -252,7 +276,7 @@ public class Explore implements BaseCommand {
                                 }
                             }
                         }
-                        Console.showMessage("Player conditions: " + (playerConditions.size() > 0 ? playerConditions.toString() : "empty"));
+//                        Console.showMessage("Player conditions: " + (playerConditions.size() > 0 ? playerConditions.toString() : "empty"));
                     } catch (Exception e) {
                         Console.showMessage("Bad conditions syntax. Needs to be [condition1=amount,condition2=amount,...]." +
                                 "\nUse 'list conditions' to see all available conditions.");
@@ -270,7 +294,7 @@ public class Explore implements BaseCommand {
                 }
             }
         }
-
+        Console.showMessage("\n----------------------------------------------------------------------------------------------------");
         for (LocationAPI loc : Global.getSector().getAllLocations()) {
             explore(loc, playerConditions);
         }
