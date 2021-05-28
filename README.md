@@ -6,6 +6,9 @@
 <p align="center">A console script for Starsector</p><br><br>
 
 
+**IMPORTANT NOTICE**: Better Colonies' AddAdminBC command can cause errors with this mod. It's a known issue and the only way around it would be to edit the AddAdminBC commands code. This post explains how to achieve it: https://fractalsoftworks.com/forum/index.php?topic=17103.msg320152#msg320152
+
+
 This mod benefits mostly users that have Grand or Adjusted sector mods.<br>
 Commands:<br>
 1) Explore \[full] \[planets] \[conditions]<br>
