@@ -17,7 +17,7 @@ Commands:<br>
 *__planets__* -  the __minimum__ number of planets a system must include (default 1)<br>
 *__conditions__* - a comma-separated, __no-space__ list of conditions and times it needs to occur in the system: \[habitable=2,ore_rare=1] - **at least** two planets that are habitable and one that has transplutonic ore.<br>
 
-    Example: Explore true 5 \[habitable=2]
+    Example: Explore true exclude 5 \[habitable=2]
     
 2) SystemInRange \<entity> \<LY><br>
 Searches for systems which are X LY away of an entity (cryosleeper, coronal tap, inactive gate).<br>
