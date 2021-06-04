@@ -1,0 +1,18 @@
+{
+  # ModPlugin
+  "enableChatterCompanion": true,
+  # Explore
+  "excludeClaimedSystems": false,
+  "playerSurveyAll": false,
+  "playerPlanetCount": 1,
+  "hasGate": false,
+  "playerStableLocCount": 1,
+  "playerJumpPointsCount": 1,
+  "filterByHazard": false,
+  "maxHazard": 250,
+  # SystemInRange
+  "playerLightYearDistance": 10,
+  "playerPlanetCountForSystemInRange": 1,
+  # Table formating
+  "MAX_TABLE_WIDTH": 108
+}

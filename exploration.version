@@ -1,11 +1,11 @@
 {
-    "masterVersionFile":"https://raw.githubusercontent.com/MilanTodorovic/Explore_the_galaxy/main/exploration.version",
-    "modName":"Explore the galaxy",
-    "modThreadId":21800,
-    "modVersion":
-    {
-	"major":1,
-	"minor":1,
-	"patch":0
-    },
+	"masterVersionFile":"https://raw.githubusercontent.com/MilanTodorovic/Explore_the_galaxy/main/exploration.version",
+	"modName":"Explore the Galaxy",
+	"modThreadId":21800,
+	"modVersion":
+	{
+		"major":1,
+		"minor":1,
+		"patch":0
+	}
 }
