@@ -3,7 +3,7 @@
     "name": "Explore the Galaxy",
     "author": "hypocrisy-aeron",
     "utility": "true",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Enables the player to search for systems with a certain number of planets and conditions.",
     "gameVersion": "0.95a-RC15",
     "dependencies":  [
