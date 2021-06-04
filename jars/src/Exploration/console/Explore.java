@@ -28,6 +28,7 @@ import Exploration.scripts.ExplorationModPlugin;
 public class Explore implements BaseCommand {
 
     protected static boolean foundAdequateSystem = true;
+    protected static boolean wildcardMode = false;
 
     // String - constellation name, SolarSystem[] - objects
     protected static HashMap<String, List<SolarSystem>> AdequateSolarSystems = new HashMap<String, List<SolarSystem>>();
@@ -36,7 +37,7 @@ public class Explore implements BaseCommand {
     //  |Constellation:|-------------------------NAME-------------------------------------------| - STRING_FORMAT_CONSTELLATION
     //  |System:-|----------------------------NAME-------------------------------|Gate:-|--YES--| - STRING_FORMAT_SYSTEM_AND_GATE
     //  |Star(s):|---RED-GIANT/BLUE-GIANT---|-Jump-points:---------|-2-|-Stable-locations:|--3--| - STRING_FORMAT_STARS + STRING_FORMAT_JUMPPOINT_AND_STABLELOC
-    //  |-No.----|------PLANET-NAME---------|-----------FACTION--------|-----TYPE--------|HAZARD| - STRING_FORMAT_PLANET_INFO
+    //  |--No.---|------PLANET-NAME---------|-----------FACTION--------|-----TYPE--------|HAZARD| - STRING_FORMAT_PLANET_INFO
     //  |----------CONDITIONS-------------------------------------------------------------------| - STRING_FORMAT_PLANET_CONDITIONS
     //  |----------CONDITIONS-------------------------------------------------------------------| - STRING_FORMAT_PLANET_CONDITIONS
 
@@ -223,10 +224,27 @@ public class Explore implements BaseCommand {
 //        Console.showMessage("Checking player condition criteria");
         for (Map.Entry<String, Integer> condition : playerConditions.entrySet()) {
 //            Console.showMessage("Player condition - " + condition.toString());
-            if (localSolarSystem.allPalnetConditions.containsKey(condition.getKey())) {
+            String key = condition.getKey();
+            int value = condition.getValue();
+            if (localSolarSystem.allPalnetConditions.containsKey(key)) {
 //                Console.showMessage("planetary condition - " + localSolarSystem.allPalnetConditions.get(condition.getKey()));
-                if (localSolarSystem.allPalnetConditions.get(condition.getKey()) < condition.getValue()) {
+                if (localSolarSystem.allPalnetConditions.get(key) < value) {
                     // if the player has specified a larger number of conditions than there are in the system, break the loop
+                    foundAdequateSystem = false;
+                    break;
+                }
+            } else if (key.endsWith("*")) {
+                // wildcard used> ore_*=3 (all types of ore)
+                int counter = value; // how many times a similar condition needs to appear
+                // go through every condition of the planet and check whether they match
+                for (Map.Entry<String,Integer> planetCondition : localSolarSystem.allPalnetConditions.entrySet()){
+                    if (planetCondition.getKey().startsWith(key.substring(0,key.length()-1))){
+                        // decrement to signify a similarity has been found
+                        counter--;
+                    }
+                }
+                if (counter > 0){
+                    // if the counter doesn't reach zero, not enough conditions matched the wildcard
                     foundAdequateSystem = false;
                     break;
                 }
@@ -464,7 +482,7 @@ public class Explore implements BaseCommand {
             Console.showMessage(SEPARATOR);
             Console.showMessage(String.format("| Default arguments: %-"+(ExplorationModPlugin.MAX_TABLE_WIDTH-21)+"s |", defaultArguments));
             Console.showMessage(String.format("| %-"+(ExplorationModPlugin.MAX_TABLE_WIDTH-2)+"s |", defaultArguments2));
-            Console.showMessage(String.format("| Player defined arguments: %-"+(ExplorationModPlugin.MAX_TABLE_WIDTH-28)+"s |", args.substring(1,args.length()-1) ));
+            Console.showMessage(String.format("| Player defined arguments: %-"+(ExplorationModPlugin.MAX_TABLE_WIDTH-28)+"s |", args));
             Console.showMessage(String.format("|%" + ExplorationModPlugin.MAX_TABLE_WIDTH + "s|",
                     Utils.centerText("Couldn't find any system matching the requirements. Try with different conditions or planet count.",
                             ExplorationModPlugin.MAX_TABLE_WIDTH)));
