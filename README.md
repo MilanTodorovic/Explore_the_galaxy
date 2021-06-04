@@ -11,25 +11,33 @@
 
 This mod benefits mostly users that have Grand or Adjusted sector mods.<br>
 Commands:<br>
-1) Explore \[full] \[planets] \[conditions]<br>
-*__full__* - `true` or `false` (default), include or exclude planets that you haven't discovered yet. If set to true, will set the planet to surveyed.<br>
-*__exclude/include__* - write `exclude`/`include`exclude or include systems in the Core world and claimed systems<br>
-*__planets__* -  the __minimum__ number of planets a system must include (default 1)<br>
-*__conditions__* - a comma-separated, __no-space__ list of conditions and times it needs to occur in the system: \[habitable=2,ore_rare=1] - **at least** two planets that are habitable and one that has transplutonic ore.<br>
+1) Explore \[all] \[exclude/include] \[hazard] \[gate] \[stableloc] \[jumppoint] \[planets] \[conditions]<br>
+Searches all star systems for specified conditions:
+*__all__* - write `all` to search even planets you haven't surveyed yet (default doesn’t search, if searched, sets survey level to full);<br>
+*__exclude/include__* - write `exclude`/`include`exclude or include systems in the Core world and claimed systems (default: `exclude`)<br>
+*__planets__* -  the __minimum__ number of planets a system must include (default: `planets=1`)<br>
+*__gate__* - write `gate` to filter by systems that have a gate;<br>
+*__stableloc__* - write `stableloc=NUMBER` to filter by stable locations (default `0`);<br>
+*__jumppoint__* - same as stableloc (default `0`);<br>
+*__hazard__* - write `hazard=250` to filter by systems which planets are below or equal to the specified value (doesn’t filter by default);<br>
+*__\[conditions]__* - a comma-separated, __no-space__ list of planetary conditions that must be met, e.g.: \[habitable=2,ore_rare=1] **at least** TWO habitable planets and ONE with transplutonic ore."<br>
 
     Example: Explore true exclude 5 \[habitable=2]
     
-2) SystemInRange \<entity> \<LY><br>
-Searches for systems which are X LY away of an entity (cryosleeper, coronal tap, inactive gate).<br>
+2) SystemInRange \<entity>\[entity] \[LY] \[planets]<br>
+Finds systems in specified range (integer) of an entity (coronal_tap, derelict_cryosleeper, inactive_gate):<br>
+if two entities are listed `coronal_tap,cryosleeper`, a table will be shown at the end listing systems within range of both;<br>
+*__LY__* - distance in  light years (default is 10);<br>
+*__planets__* - filters by number of planets<br>
 
-    Example: SystemInRange coronal_tap 10
+    Example: SystemInRange coronal_tap,cryosleeper 10
 
 
-<img src="./mod_pic.png">
-<img src="./systeminrange_example.png">
+<img src="./mod_pictures/mod_explore.jpg">
+<img src="./mod_pictures/mod_systeminrange.jpg">
 
 
 #TODO:
-- filter by stable locations/jump points
-- filter by inactive gates
+- <strike>filter by stable locations/jump points</strike>
+- <strike>filter by inactive gates</strike>
 - filter by planet type
