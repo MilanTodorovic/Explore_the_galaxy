@@ -233,6 +233,20 @@ public class Explore implements BaseCommand {
                     foundAdequateSystem = false;
                     break;
                 }
+            } else if (key.startsWith("*")) {
+                int counter = value; // how many times a similar condition needs to appear
+                // go through every condition of the planet and check whether they match
+                for (Map.Entry<String,Integer> planetCondition : localSolarSystem.allPalnetConditions.entrySet()){
+                    if (planetCondition.getKey().endsWith(key.substring(1))){
+                        // decrement to signify a similarity has been found
+                        counter--;
+                    }
+                }
+                if (counter > 0){
+                    // if the counter doesn't reach zero, not enough conditions matched the wildcard
+                    foundAdequateSystem = false;
+                    break;
+                }
             } else if (key.endsWith("*")) {
                 // wildcard used> ore_*=3 (all types of ore)
                 int counter = value; // how many times a similar condition needs to appear
