@@ -20,7 +20,7 @@ Searches all star systems for specified conditions:<br>
 *__stableloc__* - write `stableloc=NUMBER` to filter by stable locations (default `0`);<br>
 *__jumppoint__* - same as `stableloc` (default `0`);<br>
 *__hazard__* - write `hazard=NUMBER` to filter by systems which planets are below or equal to the specified value (doesn’t filter by default);<br>
-*__\[conditions]__* - a comma-separated, __no-space__ list of planetary conditions that must be met (supports * as a wildcard), e.g.: `\[habitable=2,rare_ore*=1, *abundant]` **at least** TWO habitable planets and ONE with transplutonic ore and one with ore/transplutonic ore that is abundant."<br>
+*__\[conditions]__* - a comma-separated, __no-space__ list of planetary conditions that must be met (supports * as a wildcard), e.g.: `\[habitable=2,rare_ore*=1, *abundant]` **at least** TWO habitable planets and ONE with transplutonic ore and one with ore/transplutonic ore that is abundant.<br>
 
     Example: Explore all exclude planets=5 \[habitable=2] gate
     
